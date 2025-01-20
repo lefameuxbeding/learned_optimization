@@ -22,7 +22,7 @@ import chex
 from learned_optimization import tree_utils
 from learned_optimization.optimizers import base
 import optax
-import optax.experimental
+# import optax.experimental
 
 
 class GradientTransformationWithExtraArgs(NamedTuple):

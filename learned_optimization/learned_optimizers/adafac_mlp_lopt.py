@@ -84,7 +84,9 @@ class AdafacMLPLOpt(lopt_base.LearnedOptimizer):
                concat_weights=True,
                make_separate_weights=False,
                split_weights=False,
-               clip_grad=False):
+               clip_grad=False,
+               zero_training_step_feature=False,
+               ):
     super().__init__()
     self._exp_mult = exp_mult
     self._step_mult = step_mult

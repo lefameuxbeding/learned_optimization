@@ -160,7 +160,7 @@ def _second_moment_normalizer(x, axis, eps=1e-5):
                            jnp.mean(jnp.square(x), axis=axis, keepdims=True))
 
 
-@gin.configurable
+# @gin.configurable
 class HyperV2(lopt_base.LearnedOptimizer):
   """Experimental hypernetwork based learned optimizer."""
 
@@ -178,6 +178,9 @@ class HyperV2(lopt_base.LearnedOptimizer):
       step_mult=0.001,
       validation_mode=False,
       with_validation_feature_dim=False,
+      interp_mult=1.0,
+      identity_lstm_controls=False,
+      identity_lr_mult=False,
 
       # ablation flags.
       with_g=True,
@@ -231,6 +234,7 @@ class HyperV2(lopt_base.LearnedOptimizer):
     """
     # TODO(lmetz): Remove reparam_decay -- is not being used.
     super().__init__()
+    self.interp_mult = interp_mult
     self.lstm_hidden_size = lstm_hidden_size
     self.ff_hidden_size = ff_hidden_size
     self.ff_hidden_layers = ff_hidden_layers
@@ -785,7 +789,7 @@ class HyperV2(lopt_base.LearnedOptimizer):
           def interpolate_theta(ff_p):
             target = [ff_p.shape[0]] + [1] * (len(ff_p.shape) - 1)
             c = jnp.reshape(control_param, target)
-            return 100. * jnp.mean(ff_p * c, axis=0)
+            return parent.interp_mult * jnp.mean(ff_p * c, axis=0)
 
           ff_param = jax.tree_util.tree_map(interpolate_theta,
                                             theta["ff_mod_stack"])

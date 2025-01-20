@@ -40,12 +40,25 @@ setuptools.setup(
     # don't play nice with newer versions of other libraries.
     # TODO(lmetz) add oryx to this!
     install_requires=[
+<<<<<<< HEAD
         # 'absl-py',
         # 'numpy',
         #'jax',
         #'jaxlib',
         # 'nose',
         #'dm-launchpad-nightly',
+=======
+        #'dm-launchpad-nightly',
+        #'jax',
+        #'jaxlib',
+
+
+
+
+        # 'absl-py',
+        # 'numpy',
+        # 'nose',
+>>>>>>> 1d4b91c (added changes from mila cluster)
         # 'tqdm',
         # 'flax',
         # 'dm-haiku',

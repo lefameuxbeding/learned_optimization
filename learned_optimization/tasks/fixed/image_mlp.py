@@ -43,6 +43,9 @@ class MLP(hk.Module):
       output_sizes: Iterable[int],
       w_init: Optional[hk.initializers.Initializer] = None,
       b_init: Optional[hk.initializers.Initializer] = None,
+      input_mult=1.0,
+      output_mult=1.0,
+      log_activations=False,
       with_bias: bool = True,
       activation: Callable[[jax.Array], jax.Array] = jax.nn.relu,
       activate_final: bool = False,
@@ -207,8 +210,8 @@ class _MLPImageTask(base.Task):
                datasets,
                hidden_sizes,
                act_fn=jax.nn.relu,
-               dropout_rate=0.0,
-               log_activations=False):
+               log_activations=False,
+               dropout_rate=0.0):
     super().__init__()
     num_classes = datasets.extra_info["num_classes"]
     sizes = list(hidden_sizes) + [num_classes]
